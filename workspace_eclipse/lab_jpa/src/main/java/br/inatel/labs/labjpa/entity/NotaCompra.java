@@ -1,8 +1,5 @@
 package br.inatel.labs.labjpa.entity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
 import java.math.BigDecimal;
@@ -14,6 +11,7 @@ import java.util.Objects;
 public class NotaCompra{
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull
@@ -25,6 +23,17 @@ public class NotaCompra{
 
     @OneToMany(mappedBy = "notaCompra")
     private List<NotaCompraItem> listaNotaCompraItem;
+
+    //Construtores
+    public NotaCompra() {
+
+    }
+
+    public NotaCompra(LocalDate dataEmissao, Fornecedor fornecedor) {
+        super();
+        this.dataEmissao = dataEmissao;
+        this.fornecedor = fornecedor;
+    }
 
     //Calcula o total da nota somando os totais de cada item
     public BigDecimal getCalculoTotalNota(){

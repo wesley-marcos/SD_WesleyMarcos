@@ -19,6 +19,14 @@ public class Produto{
     @ManyToMany(mappedBy = "listaProduto")
     private List<Fornecedor> listaFornecedor;
 
+    //Construtores
+    public Produto(){
+    }
+    public Produto(@NotNull @Size(min = 2, max = 100) String descricao){
+        super();
+        this.descricao = descricao;
+    }
+
     //Acessores...
     public Long getId() {
         return id;

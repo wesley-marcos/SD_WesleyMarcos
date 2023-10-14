@@ -1,12 +1,14 @@
 package br.inatel.labs.labjpa.entity;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+
 import java.math.BigDecimal;
 import java.util.Objects;
 
 @Entity
-public class NotaCompraItem{
+public class NotaCompraItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,8 +28,20 @@ public class NotaCompraItem{
     @ManyToOne
     private Produto produto;
 
+    //Construtores
+    public NotaCompraItem() {
+    }
+
+    public NotaCompraItem(NotaCompra notaCompra, Produto produto, BigDecimal valorCompraProduto, Integer quantidade) {
+        super();
+        this.valorCompraProduto = valorCompraProduto;
+        this.quantidade = quantidade;
+        this.notaCompra = notaCompra;
+        this.produto = produto;
+    }
+
     //Cálculo do total do item em tempo de execução
-    public BigDecimal getCalculoTotalItem(){
+    public BigDecimal getCalculoTotalItem() {
         return valorCompraProduto.multiply(BigDecimal.valueOf(quantidade));
     }
 
