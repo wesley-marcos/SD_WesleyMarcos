@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @SpringBootTest
 public class LoadingDemo {
@@ -19,7 +20,7 @@ public class LoadingDemo {
     @Test
     public void demoPlanejandoConsulta() {
         try {
-            NotaCompra nota = service.buscarNotaCompraItemPeloIdComListaItem(1L);
+            NotaCompra nota = service.buscarNotaCompraPeloIdComListaItem(1L);
 
             List<NotaCompraItem> listaNotaCompraItem = nota.getListaNotaCompraItem();
 
@@ -36,16 +37,14 @@ public class LoadingDemo {
     @Test
     public void demoLazyLoading() {
         try {
-            NotaCompra nota = service.buscarNotaCompraPeloId(1L);
+            Optional<NotaCompra> nota = service.buscarNotaCompraPeloId(1L);
 
-            List<NotaCompraItem> listaNotaCompraItem = nota.getListaNotaCompraItem();
+            int tamanho = nota.get().getListaNotaCompraItem().size();
 
-            int nroDeItens = listaNotaCompraItem.size();
-
-            System.out.println(nroDeItens);
+            System.out.println( tamanho );
 
         } catch (Exception e) {
-            System.out.println("O carregamento foi LAZY e por isso lançou exception.");
+            System.out.println("O carregamento foi LAZY e por isso lançou exception");
             e.printStackTrace();
         }
     }
@@ -53,11 +52,11 @@ public class LoadingDemo {
     @Test
     public void demoEagerLoading() {
         try {
-            NotaCompraItem item = service.buscarNotaCompraItemPeloId(1L);
+            Optional<NotaCompraItem> item = service.buscarNotaCompraItemPeloId( 1L );
 
-            LocalDate dataEmissao = item.getNotaCompra().getDataEmissao();
+            LocalDate dataEmissao = item.get().getNotaCompra().getDataEmissao();
 
-            System.out.println(dataEmissao);
+            System.out.println( dataEmissao );
 
             System.out.println("Aconteceu carregamento EAGER");
 
