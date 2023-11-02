@@ -40,4 +40,10 @@ public class ProdutoController {
         Produto produtoCriado = service.create(p);
         return produtoCriado;
     }
+
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
+    @PutMapping
+    public void putProduto(@RequestBody Produto p){
+        service.update(p);
+    }
 }

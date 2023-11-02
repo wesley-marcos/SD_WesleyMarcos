@@ -41,4 +41,9 @@ public class ProdutoService {
         produtos.add(p);
         return p;
     }
+
+    public void update(Produto p){
+        produtos.remove(p);
+        produtos.add(p);
+    }
 }
