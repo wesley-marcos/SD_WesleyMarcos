@@ -41,9 +41,16 @@ public class ProdutoController {
         return produtoCriado;
     }
 
-    @ResponseStatus(code = HttpStatus.NO_CONTENT)
     @PutMapping
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void putProduto(@RequestBody Produto p){
         service.update(p);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
+    public void deleteProduto(@PathVariable("id") Long produtoId){
+        Produto produtoEncontrado = getProdutoById(produtoId);
+        service.remove(produtoEncontrado);
     }
 }
