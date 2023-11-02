@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProdutoService {
@@ -25,5 +26,11 @@ public class ProdutoService {
 
     public List<Produto> findAll(){
         return this.produtos;
+    }
+
+    public Optional<Produto> findById(Long id){
+        return this.produtos.stream()
+                .filter(p -> p.getId() == id)
+                .findFirst();
     }
 }
