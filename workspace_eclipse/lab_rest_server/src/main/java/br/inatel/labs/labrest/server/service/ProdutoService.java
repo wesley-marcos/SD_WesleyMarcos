@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @Service
 public class ProdutoService {
@@ -32,5 +33,12 @@ public class ProdutoService {
         return this.produtos.stream()
                 .filter(p -> p.getId() == id)
                 .findFirst();
+    }
+
+    public Produto create(Produto p){
+        long idGerada = new Random().nextLong();
+        p.setId(idGerada);
+        produtos.add(p);
+        return p;
     }
 }

@@ -4,10 +4,7 @@ import br.inatel.labs.labrest.server.model.Produto;
 import br.inatel.labs.labrest.server.service.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -35,5 +32,12 @@ public class ProdutoController {
         }
 
         return opProduto.get();
+    }
+
+    @PostMapping
+    @ResponseStatus(code = HttpStatus.CREATED)
+    public Produto postProduto(@RequestBody Produto p){
+        Produto produtoCriado = service.create(p);
+        return produtoCriado;
     }
 }
